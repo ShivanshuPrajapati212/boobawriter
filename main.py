@@ -13,6 +13,9 @@ def createImage(text):
     image = Image.new("RGB", (total_width, height))
 
     for idx, letter in enumerate(text):
+        if letter == " ":
+            letter = "SPACE"
+
         img = Image.open(f"letters/{letter}.jpg")
 
         scaled = img.resize((width, height))
