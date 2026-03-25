@@ -1,30 +1,38 @@
 from PIL import Image
 
 def getText():
-    text = input("Enter the text: ")
-    return text.lower()
+    text = [] 
+    with open("text.txt", "r") as f:
+        contents = f.read().splitlines()
+        text = contents
+        f.close()
+
+    return text
 
 
-def createImage(text):
+def createImage(text: list[str]):
     width = 50
     height = 100
-    total_width = width * len(text)
+    total_width = width * (max(len(s) for s in text))
+    total_height = height * len(text) 
 
-    image = Image.new("RGB", (total_width, height))
+    image = Image.new("RGB", (total_width, total_height))
 
-    for idx, letter in enumerate(text):
-        if letter == " ":
-            letter = "SPACE"
+    for line_no, line in enumerate(text):
+        for idx, letter in enumerate(line):
+            if letter == " ":
+                letter = "SPACE"
 
-        img = Image.open(f"letters/{letter}.jpg")
+            img = Image.open(f"letters/{letter}.jpg")
 
-        scaled = img.resize((width, height))
+            scaled = img.resize((width, height))
 
-        image.paste(scaled, (width * idx, 0))
+            image.paste(scaled, (width * idx, height * line_no))
     
     image.save("merged_side_by_side.jpg")
 
 
 if __name__ == "__main__":
    text = getText() 
+   print(text)
    createImage(text)
