@@ -22,8 +22,10 @@ def createImage(text: list[str]):
         for idx, letter in enumerate(line):
             if letter == " ":
                 letter = "SPACE"
+            if letter.islower() == True:
+                letter = letter + "-Lower"
 
-            img = Image.open(f"letters/{letter}.jpg")
+            img = Image.open(f"shivanshu-handwriting/{letter}.jpeg")
 
             scaled = img.resize((width, height))
 
