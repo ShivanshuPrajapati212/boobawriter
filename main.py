@@ -11,8 +11,8 @@ def getText():
 
 
 def createImage(text: list[str]):
-    width = 50
-    height = 100
+    width = 16 
+    height = 33 
     total_width = width * (max(len(s) for s in text))
     total_height = height * len(text) 
 
