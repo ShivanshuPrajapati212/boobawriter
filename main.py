@@ -31,7 +31,7 @@ def createImage(text: list[str]):
 
             image.paste(scaled, (width * idx, height * line_no))
     
-    image.save("merged_side_by_side.jpg")
+    image.save("output.jpg")
 
 
 if __name__ == "__main__":
