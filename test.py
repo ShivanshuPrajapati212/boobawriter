@@ -1,14 +1,15 @@
 from PIL import Image
-import os
+import numpy as np
 
-input_folder = "shivanshu-handwriting"
-output_folder = "bw_images"
-os.makedirs(output_folder, exist_ok=True)
+img = Image.open("output.jpg").convert("RGB")
+arr = np.array(img, dtype=np.float32)
 
-for filename in os.listdir(input_folder):
-    if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.webp')):
-        img = Image.open(os.path.join(input_folder, filename))
-        bw = img.convert("L")
-        bw.save(os.path.join(output_folder, filename))
+# Estimate background from corners
+corners = [arr[:20,:20], arr[:20,-20:], arr[-20:,:20], arr[-20:,-20:]]
+bg_color = np.median(np.vstack([c.reshape(-1,3) for c in corners]), axis=0)
 
-print("Done!")
+# Shift every pixel so background becomes white (255,255,255)
+shift = 255 - bg_color
+arr = np.clip(arr + shift, 0, 255).astype(np.uint8)
+
+Image.fromarray(arr).save("output_fixed.jpg")

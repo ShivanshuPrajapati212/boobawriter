@@ -7,6 +7,7 @@ height = 33
 x_offset = 193
 y_offset = 118
 line_gap = 10
+slope = 0.5 
 
 def getText():
     text = [] 
@@ -35,7 +36,7 @@ def createImage(text: list[str]):
 
             scaled = img.resize((width, height))
 
-            image.paste(scaled, (width * idx + x_offset, height * line_no + y_offset + line_gap*line_no))
+            image.paste(scaled, (width * idx + x_offset, height * line_no + y_offset + line_gap*line_no + int(idx * slope)))
     
     image.save("output.jpg")
 
