@@ -1,4 +1,5 @@
 from PIL import Image
+from numpy import random
 
 
 
@@ -36,7 +37,11 @@ def createImage(text: list[str]):
 
             scaled = img.resize((width, height))
 
-            image.paste(scaled, (width * idx + x_offset, height * line_no + y_offset + line_gap*line_no + int(idx * slope)))
+            inregularity_x = random.randint(-2, 2)
+            inregularity_y = random.randint(-2, 2)
+
+
+            image.paste(scaled, (width * idx + x_offset + inregularity_x , height * line_no + y_offset + line_gap*line_no + int(idx * slope) + inregularity_y))
     
     image.save("output.jpg")
 
