@@ -37,11 +37,7 @@ def createImage(text: list[str]):
 
             scaled = img.resize((width, height))
 
-            inregularity_x = random.randint(-2, 2)
-            inregularity_y = random.randint(-2, 2)
-
-
-            image.paste(scaled, (width * idx + x_offset + inregularity_x , height * line_no + y_offset + line_gap*line_no + int(idx * slope) + inregularity_y))
+            image.paste(scaled, (width * idx + x_offset , height * line_no + y_offset + line_gap*line_no + int(idx * slope)))
     
     image.save("output.jpg")
 
